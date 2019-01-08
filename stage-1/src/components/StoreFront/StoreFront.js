@@ -13,15 +13,16 @@ class StoreFront extends Component {
 
     componentDidMount() {
         axios.get("https://practiceapi.devmountain.com/products/")
-            .then((response) => {
+            .then((response) => {console.log(response)
                 this.setState({
-                    products: response
+                    products: response.data
                 })
             })
     }
 
     render() {
-        let productDisplay = this.state.products.map((element, index) => {
+        let productDisplay 
+        this.state.products ? productDisplay = this.state.products.map((element, index) => {
             return (
                 <div className="product-container" key={index}>
                     <h2>{element.title}</h2>
@@ -31,7 +32,7 @@ class StoreFront extends Component {
                     <button onClick={() => this.props.addToShoppingCart(element)}>Purchase!</button>
                 </div>
             )
-        })
+        }):null
         return (
             <div className="storefront-container">
                 {productDisplay}
